@@ -1,23 +1,29 @@
+import { Meal } from '@/types/meal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class StorageAPI {
-    async store(key: string, xp: number) {
-        console.log("storing " + key + ": " + xp);
+    async store(key: string, meals: Meal[]) {
+        console.log("storing " + key + ": " + JSON.stringify(meals));
         try {
-            await AsyncStorage.setItem(key, xp.toString());
+            const mealsString = JSON.stringify(meals);
+            await AsyncStorage.setItem(key, mealsString);
+
         } catch (e) {
             console.log(e);
         }
     }
 
-    async get(key: string) {
+    async get(key: string): Promise<Meal[]> {
         try {
             const value = await AsyncStorage.getItem(key);
             console.log(key + ": " + value);
-            return value !== null ? Number(value) : 0;
+            if (value) {
+                return JSON.parse(value) as Meal[];
+            }
+            return [];
         } catch (e) {
             console.log(e);
-            return 0;
+            return [];
         }
     }
 
