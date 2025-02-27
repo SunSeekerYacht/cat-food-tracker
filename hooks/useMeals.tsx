@@ -1,11 +1,20 @@
 import { Meal } from '@/types/meal';
 import { useEffect, useState } from 'react';
 import { StorageAPI } from '@/services/storageService';
+import { FirebaseStorage } from '@/services/firebaseStorage';
+import { MockStorage } from '@/services/mockStorage';
 
 export const useMeals = () => {
+    let db;
+    if (process.env.NODE_ENV === "development") {
+        db = new MockStorage<Meal>();
+    } else {
+        db = new FirebaseStorage<Meal>();
+    }
+
     const [meals, setMeals] = useState<Meal[]>([]);
     const [totalAmount, setTotalAmount] = useState<number>(0);
-    const storage = new StorageAPI();
+    const storage = new StorageAPI(db);
 
     useEffect(() => {
         const loadMeals = async () => {
