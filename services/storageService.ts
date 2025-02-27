@@ -1,27 +1,30 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Meal } from '@/types/meal';
+import { collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
+import { db } from '@/services/firebase';
+
 
 export class StorageAPI {
-    async store(key: string, xp: number) {
-        console.log("storing " + key + ": " + xp);
+    async store(key: string, meals: Meal[]) {
+        console.log("storing " + key + ": " + JSON.stringify(meals));
         try {
-            await AsyncStorage.setItem(key, xp.toString());
+            for (const meal of meals) {
+                const docRef = await addDoc(collection(db, key), meal);
+                console.log("Document written with ID: ", docRef.id);
+            }
         } catch (e) {
-            console.log(e);
+            console.error("Error adding document: ", e);
         }
     }
 
-    async get(key: string) {
-        try {
-            const value = await AsyncStorage.getItem(key);
-            console.log(key + ": " + value);
-            return value !== null ? Number(value) : 0;
-        } catch (e) {
-            console.log(e);
-            return 0;
-        }
+    async get(key: string): Promise<Meal[]> {
+        const querySnapshot = await getDocs(collection(db, key));
+        return querySnapshot.docs.map(doc => doc.data()) as Meal[];
     }
 
-    async clear() {
-        AsyncStorage.clear();
+    async clear(key: string) {
+        const querySnapshot = await getDocs(collection(db, key));
+        querySnapshot.forEach(async (doc) => {
+            await deleteDoc(doc.ref);
+        });
     }
 }
