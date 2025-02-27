@@ -9,7 +9,7 @@ export const useMeals = () => {
 
     useEffect(() => {
         const loadMeals = async () => {
-            const storedMeals = await storage.get('/meals');
+            const storedMeals = await storage.get("meals");
             setMeals(storedMeals);
             const total = storedMeals.reduce((sum, meal) => sum + meal.amount, 0);
             setTotalAmount(total);
@@ -21,13 +21,13 @@ export const useMeals = () => {
         const updatedMeals = [...meals, meal];
         setMeals(updatedMeals);
         setTotalAmount(totalAmount + meal.amount);
-        await storage.store('/meals', updatedMeals);
+        await storage.store("meals", [meal]);
     };
 
     const handleReset = async () => {
         setMeals([]);
         setTotalAmount(0);
-        await storage.store('/meals', []);
+        await storage.clear("meals");
     };
 
 
