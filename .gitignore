@@ -37,7 +37,10 @@ yarn-error.*
 *.tsbuildinfo
 
 # Firebase
-firebase.json
-firebase-debug.log
+.firebase
+firestore-debug.log
+firestore.indexes.json
+firestore.rules
+apphosting.yaml
 
 app-example
