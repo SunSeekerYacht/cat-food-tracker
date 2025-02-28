@@ -1,12 +1,12 @@
 import { Meal } from '@/types/meal';
 import { useEffect, useState } from 'react';
 import { StorageAPI } from '@/services/storageService';
-import { getStorage } from '@/services/dependencies';
+import { StorageInterface } from '@/types/storageInterface';
 
-export const useMeals = () => {
+export const useMeals = (db: StorageInterface) => {
     const [meals, setMeals] = useState<Meal[]>([]);
     const [totalAmount, setTotalAmount] = useState<number>(0);
-    const storage = new StorageAPI(getStorage());
+    const storage = new StorageAPI(db);
 
     useEffect(() => {
         const loadMeals = async () => {
