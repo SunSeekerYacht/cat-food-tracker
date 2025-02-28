@@ -1,30 +1,25 @@
 import { Meal } from '@/types/meal';
-import { collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
-import { db } from '@/services/firebase';
-
+import { StorageInterface } from '../types/storageInterface';
 
 export class StorageAPI {
+    private db: StorageInterface;
+
+    constructor(db: StorageInterface) {
+        this.db = db;
+    }
+
     async store(key: string, meals: Meal[]) {
         console.log("storing " + key + ": " + JSON.stringify(meals));
-        try {
-            for (const meal of meals) {
-                const docRef = await addDoc(collection(db, key), meal);
-                console.log("Document written with ID: ", docRef.id);
-            }
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
+        await this.db.store(key, meals);
     }
 
     async get(key: string): Promise<Meal[]> {
-        const querySnapshot = await getDocs(collection(db, key));
-        return querySnapshot.docs.map(doc => doc.data()) as Meal[];
+        console.log("getting " + key);
+        return await this.db.get(key);
     }
 
     async clear(key: string) {
-        const querySnapshot = await getDocs(collection(db, key));
-        querySnapshot.forEach(async (doc) => {
-            await deleteDoc(doc.ref);
-        });
+        console.log("clearing " + key);
+        await this.db.clear(key);
     }
 }
