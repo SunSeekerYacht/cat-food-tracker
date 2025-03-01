@@ -6,9 +6,10 @@ import MealItem from "@/components/MealItem";
 import { useInput } from "@/hooks/useInput";
 import { useMeals } from "@/hooks/useMeals";
 import { Meal } from "@/types/meal";
+import { getStorage } from '@/services/dependencies';
 export default function Index() {
   const { showInput, toggleInput } = useInput();
-  const { meals, totalAmount, handleAddMeal, handleReset } = useMeals();
+  const { meals, totalAmount, handleAddMeal, handleReset } = useMeals(getStorage());
 
   const handleSave = (meal: Meal) => {
     handleAddMeal(meal);
