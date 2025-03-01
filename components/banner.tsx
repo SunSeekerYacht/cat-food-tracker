@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
         animationDirection: "right",
         fontFamily: "Consolas",
         fontSize: 15,
-        padding: 10
+        padding: 10,
+        color: "#71a5de",
+        fontWeight: "bold"
     }
 });
 

@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
         textAlign: 'center',
-        color: '#333333'
+        color: '#71a5de'
     },
     mealInputContainerRow: {
         flexDirection: 'row',
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '500',
         marginBottom: 6,
-        color: '#666666'
+        color: '#71a5de'
     },
     input: {
         height: 40,

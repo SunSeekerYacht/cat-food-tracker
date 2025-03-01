@@ -1,4 +1,4 @@
-import { View, Button, StyleSheet } from "react-native";
+import { View, Button, StyleSheet, TouchableOpacity, Text } from "react-native";
 import React from "react";
 import BannerText from "@/components/banner";
 import MealInput from "@/components/MealInput";
@@ -18,7 +18,9 @@ export default function Index() {
 
   return (
     <View>
-      <Button title="Reset" onPress={handleReset}></Button>
+      <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
+        <Text style={styles.text}>Neuer Tag</Text>
+      </TouchableOpacity>
       <View style={styles.container}>
 
         <View>
@@ -27,7 +29,9 @@ export default function Index() {
 
           {!showInput &&
             <View>
-              <Button title="Mahlzeit hinzufügen" onPress={toggleInput}></Button>
+              <TouchableOpacity style={styles.addButton} onPress={toggleInput}>
+                <Text style={styles.text}>Mahlzeit hinzufügen</Text>
+              </TouchableOpacity>
             </View>
           }
         </View>
@@ -45,6 +49,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#FFFDD0"
+    backgroundColor: "#e1ecf7"
+  },
+  resetButton: {
+    backgroundColor: "#71a5de",
+    padding: 10,
+    alignItems: "center",
+  },
+  addButton: {
+    backgroundColor: "#71a5de",
+    padding: 10,
+    alignItems: "center",
+    borderRadius: 10
+  },
+  text: {
+    color: "#f8f9fb",
+    fontWeight: "bold"
   }
 });
