@@ -36,7 +36,7 @@ export default function Index() {
           }
         </View>
 
-        {meals.slice().reverse().map((meal) => (
+        {meals.slice().map((meal) => (
           <MealItem meal={meal} />
         ))}
 

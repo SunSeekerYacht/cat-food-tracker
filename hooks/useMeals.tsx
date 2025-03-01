@@ -12,7 +12,8 @@ export const useMeals = (db: StorageInterface) => {
         const loadMeals = async () => {
             try {
                 const storedMeals = await storage.get("meals");
-                setMeals(storedMeals);
+                const sortedMeals = storedMeals.sort((a, b) => Number(b.timestamp) - Number(a.timestamp));
+                setMeals(sortedMeals);
                 const total = storedMeals.reduce((sum, meal) => sum + meal.amount, 0);
                 setTotalAmount(total);
             } catch (error) {

@@ -43,4 +43,7 @@ firestore.indexes.json
 firestore.rules
 apphosting.yaml
 
+# Jest
+coverage/
+
 app-example
